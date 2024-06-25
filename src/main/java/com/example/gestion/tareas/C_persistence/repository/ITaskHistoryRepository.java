@@ -1,4 +1,4 @@
-package com.example.gestion.tareas.C_persistence;
+package com.example.gestion.tareas.C_persistence.repository;
 
 import com.example.gestion.tareas.A_Domain.TaskHistory;
 import com.example.gestion.tareas.B_core.GenericRepository;
