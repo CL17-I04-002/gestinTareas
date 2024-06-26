@@ -24,9 +24,9 @@ public class TaskHistory implements Serializable {
     private Task task;
 
     @Column(name = "change_description", nullable = false)
-    private String changeDescription;
+    private String description;
 
     @Column(name = "change_date", nullable = false)
-    private LocalDateTime changeDate;
+    private LocalDateTime date;
 
 }
