@@ -60,8 +60,7 @@ public class TaskController {
             if (mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
             else{
                 taskFound.setName(task.getName());
-                taskFound.setState(task.getState());
-                taskFound.setTeam(task.getTeam());
+                taskFound.setTaskHistories(task.getTaskHistories());
                 taskRepository.save(task);
             }
         }

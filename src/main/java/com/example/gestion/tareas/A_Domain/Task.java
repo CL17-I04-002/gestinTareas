@@ -24,13 +24,7 @@ public class Task implements Serializable {
     private Long Id;
     @Column(name = "name", length = 50, nullable = false)
     private String name;
-    @Column(name = "state", nullable = false)
-    private Boolean state;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     private List<TaskHistory> taskHistories;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", referencedColumnName = "id", nullable = false)
-    private Team team;
 
 }

@@ -60,6 +60,7 @@ public class TaskHistoryController {
             if (mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
             else{
                 taskHistoryFound.setTask(taskHistory.getTask());
+                taskHistoryFound.setState(taskHistory.getState());
                 taskHistoryFound.setDescription(taskHistory.getDescription());
                 taskHistoryFound.setDate(taskHistory.getDate());
                 taskHistoryRepository.save(taskHistory);

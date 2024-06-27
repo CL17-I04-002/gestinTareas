@@ -29,7 +29,4 @@ public class User implements Serializable {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = true)
-    private Role role;
 }

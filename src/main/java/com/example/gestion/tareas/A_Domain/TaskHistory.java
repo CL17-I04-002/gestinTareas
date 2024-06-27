@@ -24,6 +24,8 @@ public class TaskHistory implements Serializable {
     @ManyToOne
     @JoinColumn(name = "task_id", referencedColumnName = "id", nullable = false)
     private Task task;
+    @Column(name = "state", nullable = false)
+    private String state;
 
     @Column(name = "description", nullable = false)
     private String description;

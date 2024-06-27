@@ -1,7 +1,5 @@
 package com.example.gestion.tareas.D_infraestructure.restController;
 
-import com.example.gestion.tareas.A_Domain.TaskHistory;
-import com.example.gestion.tareas.A_Domain.Team;
 import com.example.gestion.tareas.A_Domain.User;
 import com.example.gestion.tareas.C_persistence.repository.IUserRepository;
 import com.example.gestion.tareas.D_infraestructure.util.BindingResultUtil;
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ap1/v1/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
     private final IUserRepository userRepository;
     public UserController(IUserRepository userRepository){
@@ -61,7 +59,7 @@ public class UserController {
                 userFound.setUsername(user.getUsername());
                 userFound.setPassword(user.getPassword());
                 userFound.setEnabled(user.isEnabled());
-                userRepository.save(user);
+                userRepository.save(userFound);
             }
         }
         else{
