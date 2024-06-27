@@ -2,6 +2,7 @@ package com.example.gestion.tareas.A_Domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Role implements Serializable {
     private static final long serialVersionUID = 1;
     @Id

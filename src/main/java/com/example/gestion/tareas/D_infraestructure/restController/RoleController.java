@@ -1,7 +1,8 @@
 package com.example.gestion.tareas.D_infraestructure.restController;
 
-import com.example.gestion.tareas.A_Domain.Team;
-import com.example.gestion.tareas.C_persistence.repository.ITeamRepository;
+import com.example.gestion.tareas.A_Domain.Role;
+import com.example.gestion.tareas.A_Domain.User;
+import com.example.gestion.tareas.C_persistence.repository.IRoleRepository;
 import com.example.gestion.tareas.D_infraestructure.util.BindingResultUtil;
 import com.example.gestion.tareas.D_infraestructure.util.DetailedValidationGroup;
 import com.example.gestion.tareas.D_infraestructure.util.KeysData;
@@ -20,47 +21,47 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/team")
-public class TeamController {
-    private final ITeamRepository teamRepository;
-
+@RequestMapping("/api/v1/role")
+public class RoleController {
+    private final IRoleRepository roleRepository;
     @Autowired
-    public TeamController(ITeamRepository teamRepository){
-        this.teamRepository = teamRepository;
+    public RoleController(IRoleRepository roleRepository){
+        this.roleRepository = roleRepository;
     }
     @GetMapping
-    public ResponseEntity<List<Team>> getAllTeam(
+    public ResponseEntity<List<Role>> getAllTaskHistory(
             @Nullable @RequestParam() Integer size,
             @Nullable @RequestParam() Integer page){
-        List<Team> lstTeam;
+        List<Role> lstRole;
         if(size == null || page == null){
-            return ResponseEntity.status(HttpStatus.OK).body(teamRepository.findAll());
+            return ResponseEntity.status(HttpStatus.OK).body(roleRepository.findAll());
         } else{
             Pageable pageable = PageRequest.of(page, size);
-            Page<Team> teamPage = teamRepository.findAll(pageable);
-            lstTeam = teamPage.stream().toList();
-            return ResponseEntity.status(HttpStatus.OK).body(lstTeam);
+            Page<Role> userRole = roleRepository.findAll(pageable);
+            lstRole = userRole.stream().toList();
+            return ResponseEntity.status(HttpStatus.OK).body(lstRole);
         }
     }
     @PostMapping
-    public ResponseEntity<String> createTeam(@RequestBody @Validated(DetailedValidationGroup.class) Team team, BindingResult bindingResult){
+    public ResponseEntity<String> createTaskHistory(@RequestBody @Validated(DetailedValidationGroup.class) Role role, BindingResult bindingResult){
         Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult,
-                "Ocurrio un error al registrar un equipo, por favor ingrese los campos necesarios", "Se agrego correctamente el equipo", team);
+                "Ocurrio un error al registrar un rol, por favor ingrese los campos necesarios", "Se agrego correctamente el rol", role);
         if(mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
         else{
-            teamRepository.save(team);
+            roleRepository.save(role);
             return (ResponseEntity<String>) mapDataResult.get(KeysData.getResponseSuccess());
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTeam(@RequestBody @Validated(DetailedValidationGroup.class) Team team, @PathVariable(value = "id") Long id, BindingResult bindingResult){
-        Team teamFound = teamRepository.findById(id).orElse(null);
-        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "Ocurrio un error al modificar un equipo, por favor ingrese los campos necesarios", "Se modifico correctamente el equipo", team);
-        if(teamFound != null){
+    public ResponseEntity<String> updateTaskHistory(@RequestBody @Validated(DetailedValidationGroup.class) Role role, @PathVariable(value = "id") Long id, BindingResult bindingResult){
+        Role roleFound = roleRepository.findById(id).orElse(null);
+        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "Ocurrio un error al modificar un rol, por favor ingrese los campos necesarios", "Se modifico correctamente el rol", role);
+        if(roleFound != null){
             if (mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
             else{
-                teamFound.setName(team.getName());
-                teamRepository.save(team);
+                roleFound.setName(role.getName());
+                roleFound.setUser(role.getUser());
+                roleRepository.save(role);
             }
         }
         else{
@@ -70,12 +71,12 @@ public class TeamController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTeam(@PathVariable(value = "id") Long id){
-        Team teamFound = teamRepository.findById(id).orElse(null);
-        if(teamFound != null){
-            teamRepository.delete(teamFound);
-            return ResponseEntity.status(HttpStatus.OK).body("Se elimino correctamente el equipo");
+        Role roleFound = roleRepository.findById(id).orElse(null);
+        if(roleFound != null){
+            roleRepository.delete(roleFound);
+            return ResponseEntity.status(HttpStatus.OK).body("Se elimino correctamente el rol");
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el equipo");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el rol");
         }
     }
 }

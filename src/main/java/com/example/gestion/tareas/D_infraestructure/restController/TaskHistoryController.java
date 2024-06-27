@@ -5,6 +5,7 @@ import com.example.gestion.tareas.C_persistence.repository.ITaskHistoryRepositor
 import com.example.gestion.tareas.D_infraestructure.util.BindingResultUtil;
 import com.example.gestion.tareas.D_infraestructure.util.DetailedValidationGroup;
 import com.example.gestion.tareas.D_infraestructure.util.KeysData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class TaskHistoryController {
     private final ITaskHistoryRepository taskHistoryRepository;
 
+    @Autowired
     public TaskHistoryController(ITaskHistoryRepository taskHistoryRepository){
         this.taskHistoryRepository = taskHistoryRepository;
     }
