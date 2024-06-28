@@ -61,7 +61,7 @@ public class TaskController {
             else{
                 taskFound.setName(task.getName());
                 taskFound.setTaskHistories(task.getTaskHistories());
-                taskRepository.save(task);
+                taskRepository.save(taskFound);
             }
         }
         else{

@@ -1,5 +1,6 @@
 package com.example.gestion.tareas.A_Domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_hisotry")
+@Table(name = "task_history")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +31,7 @@ public class TaskHistory implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 

@@ -63,7 +63,7 @@ public class TaskHistoryController {
                 taskHistoryFound.setState(taskHistory.getState());
                 taskHistoryFound.setDescription(taskHistory.getDescription());
                 taskHistoryFound.setDate(taskHistory.getDate());
-                taskHistoryRepository.save(taskHistory);
+                taskHistoryRepository.save(taskHistoryFound);
             }
         }
         else{

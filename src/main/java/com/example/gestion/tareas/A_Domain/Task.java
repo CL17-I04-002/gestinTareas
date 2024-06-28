@@ -1,5 +1,6 @@
 package com.example.gestion.tareas.A_Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -25,6 +26,7 @@ public class Task implements Serializable {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    @JsonIgnore
     private List<TaskHistory> taskHistories;
 
 }
