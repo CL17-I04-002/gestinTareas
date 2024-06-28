@@ -1,7 +1,9 @@
 package com.example.gestion.tareas.A_Domain;
 
+import com.example.gestion.tareas.D_infraestructure.util.BasicValidationGroup;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,9 +30,11 @@ public class TaskHistory implements Serializable {
     @Column(name = "state", nullable = false)
     private String state;
 
+    @NotNull(groups = BasicValidationGroup.class)
     @Column(name = "description", nullable = false)
     private String description;
 
+    @NotNull(groups = BasicValidationGroup.class)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
