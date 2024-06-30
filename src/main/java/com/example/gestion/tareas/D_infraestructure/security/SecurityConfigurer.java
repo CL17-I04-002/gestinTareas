@@ -39,7 +39,7 @@ public class SecurityConfigurer {
     @Bean
     public SecurityFilterChain securirSecurityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
-                .authorizeRequests().requestMatchers("/api/v1/authenticate").permitAll()
+                .authorizeRequests().requestMatchers(HttpMethod.POST,"/api/v1/authenticate", "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -58,12 +58,12 @@ public class SecurityConfigurer {
         return provider;
     }
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-        /*String encodingId = "bcrypt";
+    public static PasswordEncoder passwordEncoder(){
+        //return NoOpPasswordEncoder.getInstance();
+        String encodingId = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put(encodingId, new BCryptPasswordEncoder());
 
-        return new DelegatingPasswordEncoder(encodingId, encoders);*/
+        return new DelegatingPasswordEncoder(encodingId, encoders);
     }
 }

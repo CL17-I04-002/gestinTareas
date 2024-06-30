@@ -45,7 +45,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<String> createTask(@RequestBody @Validated(DetailedValidationGroup.class) Task task, BindingResult bindingResult){
         Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult,
-                "Ocurrio un error al registrar una tarea, por favor ingrese los campos necesarios", "Se agrego correctamente la tarea", task);
+                "An error occurred while registering a task, please enter the necessary fields", "Se agrego correctamente la tarea", task);
         if(mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
         else{
             taskRepository.save(task);
@@ -55,7 +55,7 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateTask(@RequestBody @Validated(DetailedValidationGroup.class) Task task, @PathVariable(value = "id") Long id, BindingResult bindingResult){
         Task taskFound = taskRepository.findById(id).orElse(null);
-        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "Ocurrio un error al modificar una tarea, por favor ingrese los campos necesarios", "Se modifico correctamente la tarea", task);
+        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "An error occurred while modifying a task, please enter the necessary fields", "The task was successfully modified", task);
         if(taskFound != null){
             if (mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
             else{
@@ -65,7 +65,7 @@ public class TaskController {
             }
         }
         else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro la tarea");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
         }
         return (ResponseEntity<String>) mapDataResult.get(KeysData.getResponseSuccess());
     }
@@ -74,9 +74,9 @@ public class TaskController {
         Task taskFound = taskRepository.findById(id).orElse(null);
         if(taskFound != null){
             taskRepository.delete(taskFound);
-            return ResponseEntity.status(HttpStatus.OK).body("Se elimino correctamente la tarea");
+            return ResponseEntity.status(HttpStatus.OK).body("Task has been deleted");
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro la tarea");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found");
         }
     }
 }

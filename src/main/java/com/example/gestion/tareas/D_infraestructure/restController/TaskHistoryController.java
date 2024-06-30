@@ -45,7 +45,7 @@ public class TaskHistoryController {
     @PostMapping
     public ResponseEntity<String> createTaskHistory(@RequestBody @Validated(DetailedValidationGroup.class) TaskHistory taskHistory, BindingResult bindingResult){
         Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult,
-                "Ocurrio un error al registrar un historial de tarea, por favor ingrese los campos necesarios", "Se agrego correctamente el historial de tareas", taskHistory);
+                "An error occurred while recording a task history, please enter the necessary fields", "Successfully added task history", taskHistory);
         if(mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
         else{
             taskHistoryRepository.save(taskHistory);
@@ -55,7 +55,7 @@ public class TaskHistoryController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateTaskHistory(@RequestBody @Validated(DetailedValidationGroup.class) TaskHistory taskHistory, @PathVariable(value = "id") Long id, BindingResult bindingResult){
         TaskHistory taskHistoryFound = taskHistoryRepository.findById(id).orElse(null);
-        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "Ocurrio un error al modificar un historial tareas, por favor ingrese los campos necesarios", "Se modifico correctamente el historial tarea", taskHistory);
+        Map<String, Object> mapDataResult = BindingResultUtil.catchBadRequest(bindingResult, "An error occurred while modifying a task history, please enter the necessary fields", "The task history was successfully modified", taskHistory);
         if(taskHistoryFound != null){
             if (mapDataResult.get(KeysData.getValueTrue()) != null) return (ResponseEntity<String>) mapDataResult.get(KeysData.getBadRequest());
             else{
@@ -67,7 +67,7 @@ public class TaskHistoryController {
             }
         }
         else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el historial tarea");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task history not found");
         }
         return (ResponseEntity<String>) mapDataResult.get(KeysData.getResponseSuccess());
     }
@@ -76,9 +76,9 @@ public class TaskHistoryController {
         TaskHistory taskHistoryFound = taskHistoryRepository.findById(id).orElse(null);
         if(taskHistoryFound != null){
             taskHistoryRepository.delete(taskHistoryFound);
-            return ResponseEntity.status(HttpStatus.OK).body("Se elimino correctamente el historial tarea");
+            return ResponseEntity.status(HttpStatus.OK).body("Task history successfully deleted");
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el historial de tarea");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task history not found");
         }
     }
 }
