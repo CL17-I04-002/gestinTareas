@@ -59,7 +59,8 @@ public class UserController {
                 userFound.setUsername(user.getUsername());
                 userFound.setPassword(user.getPassword());
                 userFound.setEnabled(user.isEnabled());
-                userRepository.save(userFound);
+
+                userRepository.save(new User(user.getUsername(), user.getPassword(), user.isEnabled()));
             }
         }
         else{
