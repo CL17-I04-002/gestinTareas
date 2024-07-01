@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -56,9 +55,10 @@ public class SecurityConfigurer {
                         "/configuration/security",
                         "swagger-ui/**",
                         "/webjars/**",
-                        "/swagger-ui.html"
+                        "/swagger-ui.html",
+                        "/h2-console/**"
                 ).permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/v1/authenticate", "/api/v1/user").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/v1/authenticate").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -72,7 +72,7 @@ public class SecurityConfigurer {
                 "/swagger-ui/**", "/v3/api-docs/**",
                 "/v2/api-docs/**", "/swagger.json",
                 "/swagger-resources/**", "/webjars/**",
-                "/configuration/ui"
+                "/configuration/ui", "/h2-console/**"
         );
     }
 

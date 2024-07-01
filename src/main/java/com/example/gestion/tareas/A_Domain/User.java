@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "users")
 public class User implements UserDetails {
     private static final long serialVersionUID = 1;
@@ -35,9 +38,7 @@ public class User implements UserDetails {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    public User(){
 
-    }
 
     public User(String username, String password, boolean enabled) {
         this.username = username;
