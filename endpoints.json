@@ -1,0 +1,16 @@
+lOGIN:
+
+{
+    "username" : "test",
+    "password" : "password"
+}
+
+REGISTRAR USUARIO:
+
+RECUERDE AGREGAR EL TOKEN
+
+{
+    "username" : "user",
+    "password" : "new123",
+    "enabled" : 1
+}
