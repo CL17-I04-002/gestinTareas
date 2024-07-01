@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -39,13 +40,44 @@ public class SecurityConfigurer {
     @Bean
     public SecurityFilterChain securirSecurityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
-                .authorizeRequests().requestMatchers(HttpMethod.POST,"/api/v1/authenticate", "/api/v1/user").permitAll()
+               /* .cors().disable()*/
+                .authorizeRequests().requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/webjars/**",
+                        "/v2/**",
+                        "/v2/api-docs",
+                        "/api/v1/auth/**",
+                        "/v2/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-resorces",
+                        "/swagger-resorces/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "swagger-ui/**",
+                        "/webjars/**",
+                        "/swagger-ui.html"
+                ).permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/v1/authenticate", "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(
+                "/swagger-ui/**", "/v3/api-docs/**",
+                "/v2/api-docs/**", "/swagger.json",
+                "/swagger-resources/**", "/webjars/**",
+                "/configuration/ui"
+        );
+    }
+
+
+
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return new ProviderManager(Collections.singletonList(authenticationProvider()));
