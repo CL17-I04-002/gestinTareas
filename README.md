@@ -27,6 +27,6 @@ A continuación se detalla cómo instalar y configurar el proyecto.
 ### NOTA
 Se encuentran datos precargados dentro de la solución por ejemplo en Usuario: username = test, password = password.
 El endpoint a acceder para el login es: http:///localhost:8080/api/v1/authenticate usando el método POST y
-la URL para acceder a la documentación de Postman es: http://localhost:8080/swagger-ui/index.html
+la URL para acceder a la documentación de Swagger es: http://localhost:8080/swagger-ui/index.html
 Es importante si registra un usuario debe agregar la propiedad enabled = 1 o sino aunque tenga credenciales buenas no podrá iniciar sesión correctamente porque el
 usuario no está habilitado
