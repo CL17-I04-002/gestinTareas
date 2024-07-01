@@ -6,7 +6,7 @@ Este es un proyecto desarrollado por ing. Daniel Larín para gestionar tareas us
 
 Este proyecto incluye una API RESTful para la gestión de tareas, autenticación JWT incluyendo un firmador y documentación Swagger. Inspirado con
 arquitectura "Clean Architecture" y aplicando buenas practicas de Clean Code
-y SOLID, donde se aplicaron patrones de diseños en los cuales están repository y builder.
+y SOLID, donde se aplicaron patrones de diseños en los cuales están repository, chain of reponsibility y builder.
 
 ## Instalación
 
